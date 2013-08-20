@@ -15,11 +15,11 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </a>
-        <a class="brand" href="#">Data</a>
+        <a class="brand" href="#">Links</a>
         <div class="nav-collapse">
           <ul class="nav">
             <li><%= link_to "See Weighings", weighings_path %></li>
-            <li><%= link_to "See Sessions", sessions_path %></li>
+            <li><%= link_to "Start Sessions", root_url %></li>
           </ul>
         </div>
       </div>
@@ -35,7 +35,7 @@
 <br/>
 	  <%= link_to t('.destroy', :default => t("End Session")),
 	              root_url,
-	              :class => 'btn btn-danger' %>
+	              :class => 'btn btn-danger btn-large' %>
       </div>
      <% end %>
     </div>

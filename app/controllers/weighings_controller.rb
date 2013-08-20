@@ -19,7 +19,7 @@ class WeighingsController < ApplicationController
            end
       	end
           #send to browser
-  	        send_data csv_string, :type =>'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=checkouts.csv"
+  	        send_data csv_string, :type =>'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=weighings.csv"
       end
     end
   end

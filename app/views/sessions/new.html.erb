@@ -31,7 +31,10 @@
 	<br /`>
 	  <div class="actions">
 		<div class="modal-footer">
-		    <%= f.submit "Start Weighing" %>
+		    <%= f.submit "Start Weighing", :class => 'btn btn-primary' %>
+			<%= link_to t('.cancel', :default => t("See Weighings")),
+			            weighings_path,
+			            :class => 'btn btn-primary' %>
 		  </div>
 	<% end %>
   </div>

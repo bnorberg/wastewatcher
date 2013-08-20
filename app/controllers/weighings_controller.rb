@@ -59,13 +59,13 @@ class WeighingsController < ApplicationController
     @weighing = Weighing.new(params[:weighing])
     @weighing.session_id = session_id
   #For handling the subtraction of the last weight taken by the current weight  
-    if !Weighing.all.last.t_weight.nil?
+    if Weighing.count > 1  
       @previous = Weighing.all.last.t_weight.to_f
       @weighing.weight = (@weighing.t_weight.to_f - @previous).to_f
       @weighing.save
     else
-       @weighing.weight = @weighing.t_weight
-       @weighing.save
+      @weighing.weight = @weighing.t_weight
+      @weighing.save
     end   
     respond_to do |format|
       if @weighing.save

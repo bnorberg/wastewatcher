@@ -1,0 +1,38 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#start_modal').modal('show');
+    });
+</script>
+<div class="modal fade" id="start_modal">
+<div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>Select Meal and Location Settings</h3>
+  </div>
+  <div class="modal-body">
+    <%= form_for(@session) do |f| %>
+	  <% if @session.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@session.errors.count, "error") %> prohibited this session from being saved:</h2>
+
+	      <ul>
+	      <% @session.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+
+	  <div class="field">
+	    <%= f.label "Meal" %><%= f.select :meal, ['Dinner'] %>
+	  </div>
+	  <div class="field">
+	    <%= f.label "Location" %><%= f.select :location, ['Fountain'] %>
+	  </div>
+	<br /`>
+	  <div class="actions">
+		<div class="modal-footer">
+		    <%= f.submit "Start Weighing" %>
+		  </div>
+	<% end %>
+  </div>
+</div>

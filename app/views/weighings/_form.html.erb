@@ -1,0 +1,16 @@
+<%= form_for @weighing, :remote=>true, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+      <%= f.label :weight %>
+      <%= f.text_field :t_weight, :class => 'text_field' %>
+  </div>
+  <div class="control-group">
+	<%= f.label "Approximate length of meal in minutes" %>
+      <%= f.select :duration, ['15','30', '45', '60', '75', '90', '105', '120'], :include_blank => true %>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+       <%= f.hidden_field :session_id %>
+    </div>
+  </div>
+    <%= f.submit "Submit", :class => 'btn btn-primary' %>
+<% end %>

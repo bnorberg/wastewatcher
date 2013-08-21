@@ -12,10 +12,10 @@ class WeighingsController < ApplicationController
 	      @weighings = Weighing.all
        	csv_string = CSV.generate do |csv|
       	   #header
-      	   csv << ["date", "time", "weight", "duration", "meal", "location"]
+      	   csv << ["date", "time", "weight", "duration", "meal", "location", "session number"]
       	   @weighings.each do |w|
             #data rows
-        		 csv << [w.created_at.to_s.split(' ')[0], w.created_at.to_s.split(' ')[1], w.weight, w.duration, w.session.meal,  w.session.location]
+        		 csv << [w.created_at.to_s.split(' ')[0], w.created_at.to_s.split(' ')[1], w.weight, w.duration, w.session.meal,  w.session.location, w.session_id]
            end
       	end
           #send to browser

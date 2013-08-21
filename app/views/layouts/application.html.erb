@@ -31,7 +31,7 @@
       <div class="span9"><%= yield %></div>
 	  <% if request.path =~ /^\/sessions\/\d*/ %>
       <div class="span3">
-       	<div id="weigh_counts"><%= Weighing.all.count %></div>
+       	<div id="weigh_counts"><%= Weighing.where(["session_id = ?", @weighing.session_id]).count %></div>
 <br/>
 	  <%= link_to t('.destroy', :default => t("End Session")),
 	              root_url,

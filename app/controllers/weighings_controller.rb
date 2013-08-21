@@ -58,9 +58,9 @@ class WeighingsController < ApplicationController
     session_id = params[:weighing].delete(:session_id)
     @weighing = Weighing.new(params[:weighing])
     @weighing.session_id = session_id
-  #For handling the subtraction of the last weight taken by the current weight  
-    if Weighing.count >= 1  
-      @previous = Weighing.all.last.t_weight.to_f
+  #For handling the subtraction of the last weight taken by the current weight with multiple sessions running simultaneously
+    if Weighing.where(["session_id = ?", @weighing.session_id]).count >= 1
+      @previous = Weighing.where(["session_id = ?", session_id]).last.t_weight.to_f
       @weighing.weight = (@weighing.t_weight.to_f - @previous).to_f
       @weighing.save
     else

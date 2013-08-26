@@ -66,7 +66,16 @@ class WeighingsController < ApplicationController
     else
       @weighing.weight = @weighing.t_weight
       @weighing.save
-    end   
+    end  
+  #For different digital scale that records individual weight but not total   
+    #if Weighing.where(["session_id = ?", @weighing.session_id]).count >= 1
+      #@previous = Weighing.where(["session_id = ?", session_id]).last.t_weight.to_f
+     # @weighing.t_weight = (@weighing.weight.to_f + @previous).to_f
+      #@weighing.save
+    #else
+      #@weighing.t_weight = @weighing.weight
+      #@weighing.save
+    #end
     respond_to do |format|
       if @weighing.save
         format.js

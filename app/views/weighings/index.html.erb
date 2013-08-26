@@ -11,6 +11,7 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:weight) %></th>
+	  <th><%= model_class.human_attribute_name(:t_weight) %></th>
       <th><%= model_class.human_attribute_name(:duration) %></th>
       <th><%= model_class.human_attribute_name(:session_id) %></th>
       <th><%= model_class.human_attribute_name(:date) %></th>
@@ -22,6 +23,7 @@
     <% @weighings.each do |weighing| %>
       <tr>
         <td><%= weighing.weight %></td>
+		<td><%= weighing.t_weight %></td>
         <td><%= weighing.duration %></td>
         <td><%= weighing.session_id %></td>
         <td><%= weighing.created_at.to_s.split(" ")[0] %></td>

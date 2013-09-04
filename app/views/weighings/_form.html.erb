@@ -1,14 +1,14 @@
-<%= form_for @weighing, :remote=>true, :html => { :class => 'form-horizontal' } do |f| %>
-<!-- For analog scale -->
+<%= form_for @weighing, :remote=>true, :html => { :class => 'form-horizontal', :id => 'weighing_form' } do |f| %>
+<!-- For analog scale
   <div class="control-group">
       <%= f.label :weight %>
       <%= f.text_field :t_weight, :class => 'text_field' %>
-  </div>
-<!-- For digital scale 
+  </div> -->
+<!-- For digital scale -->
   <div class="control-group">
       <%= f.label :weight %>
       <%= f.text_field :weight, :class => 'text_field' %>
-  </div>-->
+  </div>
   <div class="control-group">
 	<%= f.label "Approximate length of meal in minutes" %>
       <%= f.select :duration, ['15','30', '45', '60', '75', '90', '105', '120'], :include_blank => true %>

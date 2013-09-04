@@ -59,23 +59,23 @@ class WeighingsController < ApplicationController
     @weighing = Weighing.new(params[:weighing])
     @weighing.session_id = session_id
   #For handling the subtraction of the last weight taken by the current weight with multiple sessions running simultaneously
-    if Weighing.where(["session_id = ?", @weighing.session_id]).count >= 1
-      @previous = Weighing.where(["session_id = ?", session_id]).last.t_weight.to_f
-      @weighing.weight = (@weighing.t_weight.to_f - @previous).to_f
-      @weighing.save
-    else
-      @weighing.weight = @weighing.t_weight
-      @weighing.save
-    end  
-  #For different digital scale that records individual weight but not total   
     #if Weighing.where(["session_id = ?", @weighing.session_id]).count >= 1
       #@previous = Weighing.where(["session_id = ?", session_id]).last.t_weight.to_f
-     # @weighing.t_weight = (@weighing.weight.to_f + @previous).to_f
+      #@weighing.weight = (@weighing.t_weight.to_f - @previous).to_f
       #@weighing.save
     #else
-      #@weighing.t_weight = @weighing.weight
+      #@weighing.weight = @weighing.t_weight
       #@weighing.save
-    #end
+    #end  
+  #For different digital scale that records individual weight but not total   
+    if Weighing.where(["session_id = ?", @weighing.session_id]).count >= 1
+      @previous = Weighing.where(["session_id = ?", session_id]).last.t_weight.to_f
+      @weighing.t_weight = (@weighing.weight.to_f + @previous).to_f
+      @weighing.save
+    else
+      @weighing.t_weight = @weighing.weight
+      @weighing.save
+    end
     respond_to do |format|
       if @weighing.save
         format.js

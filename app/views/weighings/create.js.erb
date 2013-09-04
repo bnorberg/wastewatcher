@@ -1,1 +1,2 @@
 $('#weigh_counts').html("<%= Weighing.where(["session_id = ?", @weighing.session_id]).count %>");
+$('#weighing_form')[0].reset();

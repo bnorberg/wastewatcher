@@ -1,6 +1,7 @@
 WasteWatcherApp::Application.routes.draw do
   
   root to: 'sessions#new'
+  get "graphs" => "weighings#graph", :as => "graphs"
   
   
   resources :weighings

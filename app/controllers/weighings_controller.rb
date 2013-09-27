@@ -34,7 +34,7 @@ class WeighingsController < ApplicationController
       format.json { render json: @weighing }
     end
   end
-
+  
   # GET /weighings/new
   # GET /weighings/new.json
   def new
@@ -83,6 +83,23 @@ class WeighingsController < ApplicationController
         format.html { render action: "new" }
         format.json { render json: @weighing.errors, status: :unprocessable_entity }
       end
+    end
+  end
+  
+  def graph
+    @weighing = Weighing.new(params[:weighing])
+    @weighing.session_id = session_id
+    if Weighing.where(["session_id = ?", @weighing.session_id]).count >= 1
+      @previous = Weighing.where(["session_id = ?", session_id]).last.t_weight.to_f
+      @weighing.t_weight = (@weighing.weight.to_f + @previous).to_f
+      @weighing.save
+    else
+      @weighing.t_weight = @weighing.weight
+      @weighing.save
+    end
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @weighing }
     end
   end
 

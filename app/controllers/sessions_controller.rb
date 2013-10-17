@@ -16,6 +16,9 @@ class SessionsController < ApplicationController
     @session = Session.find(params[:id])
     @weighing = Weighing.new
     @weighing.session_id = @session.id
+    @graph = Graph.new
+    @graph.session_id = @session.id
+    @graph.save
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @session }
@@ -41,8 +44,8 @@ class SessionsController < ApplicationController
   # POST /sessions
   # POST /sessions.json
   def create
+    session_id = params[:session].delete(:id)
     @session = Session.new(params[:session])
-
     respond_to do |format|
       if @session.save
         format.html { redirect_to @session, notice: 'Session was successfully created.' }
@@ -53,7 +56,7 @@ class SessionsController < ApplicationController
       end
     end
   end
-
+  
   # PUT /sessions/1
   # PUT /sessions/1.json
   def update

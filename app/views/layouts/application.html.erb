@@ -20,6 +20,12 @@
           <ul class="nav">
 			<li><%= link_to "Start Weighing", root_url %></li>
             <li><%= link_to "See Weighings", weighings_path %></li>
+<!-- Create link for visualizing the weight -->
+			<% if request.path =~ /^\/sessions\/\d*/ %>
+				<% @sid = request.path.split("/").last %>
+				<% @graph = Graph.find_by_session_id(@sid) %>
+				<li><%= link_to "See Graphs", @graph, :target => '_blank' %></li>
+			<% end %>	
           </ul>
         </div>
       </div>

@@ -1,4 +1,4 @@
-<%- model_class = Session -%>
+<%- model_class = Graph -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
 </div>
@@ -6,24 +6,22 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:meal) %></th>
-      <th><%= model_class.human_attribute_name(:location) %></th>
+      <th><%= model_class.human_attribute_name(:session_id) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
-    <% @sessions.each do |session| %>
+    <% @graphs.each do |graph| %>
       <tr>
-        <td><%= link_to session.id, session_path(session) %></td>
-        <td><%= session.meal %></td>
-        <td><%= session.location %></td>
-        <td><%= session.created_at.localtime.to_s.split(' -')[0] %></td>
+        <td><%= link_to graph.id, graph_path(graph) %></td>
+        <td><%= graph.session_id %></td>
+        <td><%=l graph.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_session_path(session), :class => 'btn btn-mini' %>
+                      edit_graph_path(graph), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      session_path(session),
+                      graph_path(graph),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>
@@ -32,3 +30,7 @@
     <% end %>
   </tbody>
 </table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_graph_path,
+            :class => 'btn btn-primary' %>

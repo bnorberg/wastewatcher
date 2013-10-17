@@ -3,4 +3,6 @@ class Session < ActiveRecord::Base
   
   has_many :weighings
   
+  has_one :graph
+  
 end

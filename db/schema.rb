@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130820145831) do
+ActiveRecord::Schema.define(:version => 20131017193923) do
+
+  create_table "graphs", :force => true do |t|
+    t.integer  "session_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "sessions", :force => true do |t|
     t.string   "meal"
@@ -23,10 +29,15 @@ ActiveRecord::Schema.define(:version => 20130820145831) do
   create_table "weighings", :force => true do |t|
     t.float    "weight"
     t.integer  "duration"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
     t.integer  "session_id"
     t.float    "t_weight"
+    t.integer  "count"
+    t.float    "session_average"
+    t.float    "average"
+    t.float    "session_duration_average"
+    t.float    "duration_average"
   end
 
 end

@@ -1,8 +1,10 @@
 class WeighingsController < ApplicationController
   # GET /weighings
   # GET /weighings.json
+  
+  require 'csv'
+  
   def index
-    require 'csv'
     @weighings = Weighing.all
 
     respond_to do |format|
@@ -67,13 +69,27 @@ class WeighingsController < ApplicationController
       #@weighing.weight = @weighing.t_weight
       #@weighing.save
     #end  
-  #For different digital scale that records individual weight but not total   
+  #For different digital scale that records individual weight but not total  
+  @count = Weighing.where(["session_id = ?", session_id]).count + 1
+  @weighing.count = @count
+  @average = Weighing.average("weight").to_f.round(2)
+  @weighing.average = @average
+  @durations = Weighing.where("duration IS NOT NULL")
+  @duration_average = @durations.average("duration").to_f.round(2)
+  @weighing.duration_average = @duration_average
+  @session_durations = Weighing.where(["session_id = ?", session_id]).where("duration IS NOT NULL")
+  @duration_session_average = @session_durations.average("duration").to_f.round(2)
+  @weighing.session_duration_average = @duration_session_average
     if Weighing.where(["session_id = ?", @weighing.session_id]).count >= 1
       @previous = Weighing.where(["session_id = ?", session_id]).last.t_weight.to_f
       @weighing.t_weight = (@weighing.weight.to_f + @previous).to_f
+      @ws = Weighing.where(["session_id = ?", session_id])
+      session_average = @ws.average("weight").to_f.round(2)
+      @weighing.session_average = session_average
       @weighing.save
     else
       @weighing.t_weight = @weighing.weight
+      @weighing.session_average = @weighing.weight
       @weighing.save
     end
     respond_to do |format|
@@ -84,23 +100,7 @@ class WeighingsController < ApplicationController
         format.json { render json: @weighing.errors, status: :unprocessable_entity }
       end
     end
-  end
-  
-  def graph
-    @weighing = Weighing.new(params[:weighing])
-    @weighing.session_id = session_id
-    if Weighing.where(["session_id = ?", @weighing.session_id]).count >= 1
-      @previous = Weighing.where(["session_id = ?", session_id]).last.t_weight.to_f
-      @weighing.t_weight = (@weighing.weight.to_f + @previous).to_f
-      @weighing.save
-    else
-      @weighing.t_weight = @weighing.weight
-      @weighing.save
-    end
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @weighing }
-    end
+      Pusher.trigger("#{@weighing.session_id.to_s}", 'my_event', {:message => "#{@weighing.to_json}"})
   end
 
   # PUT /weighings/1

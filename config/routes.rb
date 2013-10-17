@@ -1,14 +1,15 @@
 WasteWatcherApp::Application.routes.draw do
-  
+
   root to: 'sessions#new'
-  get "graphs" => "weighings#graph", :as => "graphs"
-  
+  get "graphy" => "weighings#graph", :as => "graphy"
   
   resources :weighings
 
 
   resources :sessions
 
+  
+  resources :graphs
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -77,19 +77,20 @@ class WeighingsController < ApplicationController
   @durations = Weighing.where("duration IS NOT NULL")
   @duration_average = @durations.average("duration").to_f.round(2)
   @weighing.duration_average = @duration_average
-  @session_durations = Weighing.where(["session_id = ?", session_id]).where("duration IS NOT NULL")
-  @duration_session_average = @session_durations.average("duration").to_f.round(2)
-  @weighing.session_duration_average = @duration_session_average
     if Weighing.where(["session_id = ?", @weighing.session_id]).count >= 1
       @previous = Weighing.where(["session_id = ?", session_id]).last.t_weight.to_f
       @weighing.t_weight = (@weighing.weight.to_f + @previous).to_f
       @ws = Weighing.where(["session_id = ?", session_id])
       session_average = @ws.average("weight").to_f.round(2)
       @weighing.session_average = session_average
+      @session_durations = Weighing.where(["session_id = ?", session_id]).where("duration IS NOT NULL")
+      @duration_session_average = @session_durations.average("duration").to_f.round(2)
+      @weighing.session_duration_average = @duration_session_average
       @weighing.save
     else
       @weighing.t_weight = @weighing.weight
       @weighing.session_average = @weighing.weight
+      @weighing.session_duration_average= @weighing.duration
       @weighing.save
     end
     respond_to do |format|

@@ -24,7 +24,7 @@
 			<% if request.path =~ /^\/sessions\/\d*/ %>
 				<% @sid = request.path.split("/").last %>
 				<% @graph = Graph.find_by_session_id(@sid) %>
-				<li><%= link_to "See Graphs", @graph, :target => '_blank' %></li>
+				<li><%= link_to "See Graphs", @graph, :onclick=>"window.open(this.href,'create_graphwindow', 'height=1000, width=1800');return false;" %></li>
 			<% end %>	
           </ul>
         </div>

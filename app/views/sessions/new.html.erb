@@ -26,7 +26,7 @@
 	    <%= f.label "Meal" %><%= f.select :meal, ['Dinner'] %>
 	  </div>
 	  <div class="field">
-	    <%= f.label "Location" %><%= f.select :location, ['Fountain'] %>
+	    <%= f.label "Location" %><%= f.select :location, ['Fountain', 'Clark'], :include_blank => true %>
 	  </div>
 	<br /`>
 	  <div class="actions">

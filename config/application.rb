@@ -63,5 +63,9 @@ module WasteWatcherApp
     config.assets.initialize_on_precompile = false
 
     config.serve_static_assets = false
+
+      # Load the app's custom environment variables here, so that they are loaded before environments/*.rb
+app_environment_variables = File.join(Rails.root, 'config', 'local_env.rb')
+load(app_environment_variables) if File.exists?(app_environment_variables)
   end
 end
